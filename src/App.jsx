@@ -2,8 +2,14 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { CiSearch } from "react-icons/ci";
 import { IoIosAddCircle } from "react-icons/io";
+import { useEffect, useState } from "react";
+import { collection, doc, getDocs } from "firebase/firestore";
+import app from "./config/firebase-config";
+import { db } from "./config/firebase-config";
 
 function App() {
+  const [contacts, setContacts] = useState([]);
+
   return (
     <div className="App flex flex-col items-start justify-center items-center m-4 max-w-80 mx-auto">
       <Navbar />

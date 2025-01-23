@@ -10,6 +10,17 @@ import { db } from "./config/firebase-config";
 function App() {
   const [contacts, setContacts] = useState([]);
 
+  useEffect(() => {
+    const getContacts = async () => {
+      try {
+        const contactsRef = collection(db, "contacts");
+        const contactSnapshot = await getDocs(contactsRef);
+        const contactList = contactSnapshot.docs.map((doc) => doc.data());
+        console.log(contactList);
+      } catch (error) {}
+    };
+  }, []);
+
   return (
     <div className="App flex flex-col items-start justify-center items-center m-4 max-w-80 mx-auto">
       <Navbar />

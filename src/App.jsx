@@ -3,9 +3,12 @@ import Navbar from "./components/Navbar";
 import { CiSearch } from "react-icons/ci";
 import { IoIosAddCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import app from "./config/firebase-config";
 import { db } from "./config/firebase-config";
+import { MdDelete } from "react-icons/md";
+import { MdAccountCircle } from "react-icons/md";
+import { FaRegEdit } from "react-icons/fa";
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -14,25 +17,50 @@ function App() {
     const getContacts = async () => {
       try {
         const contactsRef = collection(db, "contacts");
+        console.log("Fetching");
         const contactSnapshot = await getDocs(contactsRef);
-        const contactList = contactSnapshot.docs.map((doc) => doc.data());
-        console.log(contactList);
-      } catch (error) {}
+        // console.log(contactSnapshot.docs);
+        const contactList = contactSnapshot.docs.map((doc) => {
+          console.log("Data", doc.data());
+          return { id: doc.id, ...doc.data() };
+        });
+        console.log("Fetched contacts: ", contactList);
+        setContacts(contactList);
+      } catch (error) {
+        console.log(error);
+      }
     };
+
+    getContacts();
   }, []);
 
   return (
-    <div className="App flex flex-col items-start justify-center items-center m-4 max-w-80 mx-auto">
+    <div className="App flex flex-col justify-center items-center m-4 max-w-80 mx-auto">
       <Navbar />
-      <div className="flex w-full items-center relative sticky">
-        <CiSearch className="text-lg m-1 absolute text-white " />
+      <div className="flex w-full items-center relative gap-2">
+        <CiSearch className="text-lg m-1 absolute left-2 text-white " />
         <input
           type="text"
-          className="border flex-grow border-white rounded-lg bg-transparent text-left  h-9 text-white pl-6 font-little"
+          className="border-2 flex-grow flex items-center border-white rounded-lg bg-transparent h-9 text-white pl-8 font-little"
           placeholder="Search Contact "
-          input
         />
         <IoIosAddCircle className="text-white text-5xl cursor-pointer" />
+      </div>
+      <div className="border-red-500">
+        {contacts.map((item) => {
+          return (
+            <div key={item.id} className=" w-full h-40">
+              <MdAccountCircle />
+              <h1>{item.name}</h1>
+              <p>{item.email}</p>
+              <p>{item.phone_number}</p>
+              <div>
+                <FaRegEdit />
+                <MdDelete />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

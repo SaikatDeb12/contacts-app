@@ -46,21 +46,23 @@ function App() {
         />
         <IoIosAddCircle className="text-white text-5xl cursor-pointer" />
       </div>
-      <div className="border-red-500">
-        {contacts.map((item) => {
-          return (
-            <div key={item.id} className=" w-full h-40">
-              <MdAccountCircle />
+      <div>
+        {contacts.map((item) => (
+          <div
+            className="bg-[#ffeaae] flex w-full h-50 pl-5 pr-5 pt-2 pb-2 rounded-lg items-center justify-evenly "
+            key={item.id}
+          >
+            <MdAccountCircle className="h-12 w-12 text-[#F6820C]" />
+            <div className="font-semibold flex-grow-2 ml-5 mr-5">
               <h1>{item.name}</h1>
               <p>{item.email}</p>
-              <p>{item.phone_number}</p>
-              <div>
-                <FaRegEdit />
-                <MdDelete />
-              </div>
             </div>
-          );
-        })}
+            <div className="flex m-2">
+              <FaRegEdit className="h-7 w-7 mr-1" />
+              <MdDelete className="h-7 w-7 text-[#F6820C]" />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -11,6 +11,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import ContactCard from "./components/ContactCard";
 import Modal from "./components/Modal";
+import AddUpdateContacts from "./components/AddUpdateContacts";
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -65,7 +66,7 @@ function App() {
           ))}
         </div>
       </div>
-      <Modal modalState={modalState} isOpen={isOpen} isClose={isClose} />
+      <AddUpdateContacts modalState={modalState} isClose={isClose} />
     </>
   );
 }

@@ -10,10 +10,18 @@ import { MdDelete } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import ContactCard from "./components/ContactCard";
+import Modal from "./components/Modal";
 
 function App() {
   const [contacts, setContacts] = useState([]);
 
+  const [modalState, setModalState] = useState(false);
+  const isOpen = () => {
+    setModalState(true);
+  };
+  const isClose = () => {
+    setModalState(false);
+  };
   useEffect(() => {
     const getContacts = async () => {
       try {
@@ -36,23 +44,29 @@ function App() {
   }, []);
 
   return (
-    <div className="App flex flex-col justify-center items-center m-4 max-w-80 mx-auto">
-      <Navbar />
-      <div className="flex w-full items-center relative gap-2">
-        <CiSearch className="text-lg m-1 absolute left-2 text-white " />
-        <input
-          type="text"
-          className="border-2 flex-grow flex items-center border-white rounded-lg bg-transparent h-9 text-white pl-8 font-little"
-          placeholder="Search Contact "
-        />
-        <IoIosAddCircle className="text-white text-5xl cursor-pointer" />
+    <>
+      <div className="App flex flex-col justify-center items-center m-4 max-w-80 mx-auto">
+        <Navbar />
+        <div className="flex w-full items-center relative gap-2">
+          <CiSearch className="text-lg m-1 absolute left-2 text-white " />
+          <input
+            type="text"
+            className="border-2 flex-grow flex items-center border-white rounded-lg bg-transparent h-9 text-white pl-8 font-little"
+            placeholder="Search Contact "
+          />
+          <IoIosAddCircle
+            className="text-white text-5xl cursor-pointer"
+            onClick={isOpen}
+          />
+        </div>
+        <div className="mt-3">
+          {contacts.map((item) => (
+            <ContactCard item={item} />
+          ))}
+        </div>
       </div>
-      <div className="mt-3">
-        {contacts.map((item) => (
-          <ContactCard item={item} />
-        ))}
-      </div>
-    </div>
+      <Modal modalState={modalState} isOpen={isOpen} isClose={isClose} />
+    </>
   );
 }
 

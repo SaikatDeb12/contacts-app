@@ -1,13 +1,24 @@
 import { Field, Form, Formik } from "formik";
 import Modal from "./Modal";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../config/firebase-config";
 
 const AddUpdateContacts = ({ modalState, isClose }) => {
+  const addContact = async (details) => {
+    try {
+      const contactRef = collection(db, "contacts");
+      await addDoc(contactRef, details);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div>
       <Modal modalState={modalState} isClose={isClose}>
         <Formik
           initialValues={{ name: "", email: "" }}
-          onSubmit={(value) => console.log(value)}
+          onSubmit={(value) => addContact(value)}
         >
           <Form>
             <div className="flex flex-col gap-1">

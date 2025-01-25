@@ -9,7 +9,7 @@ const ContactCard = ({ item }) => {
       key={item.id}
     >
       <VscAccount className="h-10 w-12 text-[#F6820C]" />
-      <div className="font-semibold flex-grow-2 ml-5 mr-5">
+      <div className="font-semibold flex-grow-2 h-fit ml-5 mr-5">
         <h1>{item.name}</h1>
         <p>{item.email}</p>
       </div>

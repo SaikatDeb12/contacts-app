@@ -62,7 +62,7 @@ function App() {
         </div>
         <div className="mt-3">
           {contacts.map((item) => (
-            <ContactCard item={item} />
+            <ContactCard item={item} key={item.id} />
           ))}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import Modal from "./Modal";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 
 const AddUpdateContacts = ({ modalState, isClose }) => {

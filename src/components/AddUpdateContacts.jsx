@@ -2,7 +2,7 @@ import { Field, Form, Formik } from "formik";
 import Modal from "./Modal";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase-config";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddUpdateContacts = ({ item, modalState, isClose, isUpdate }) => {
   const addContact = async (details) => {
@@ -50,7 +50,7 @@ const AddUpdateContacts = ({ item, modalState, isClose, isUpdate }) => {
               <label htmlFor="email">Email: </label>
               <Field name="email" className="border rounded-sm" />
               <button
-                type="submit" // Corrected button type
+                type="submit"
                 className="bg-[#F6820C] p-1 self-end rounded-md "
               >
                 {isUpdate ? "Edit Contact" : "Add to Contacts"}

@@ -11,13 +11,10 @@ import {
 } from "firebase/firestore";
 import app from "./config/firebase-config";
 import { db } from "./config/firebase-config";
-import { MdDelete } from "react-icons/md";
-import { MdAccountCircle } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
 import ContactCard from "./components/ContactCard";
-import Modal from "./components/Modal";
 import AddUpdateContacts from "./components/AddUpdateContacts";
 import useModal from "./hooks/useModal";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const [contacts, setContacts] = useState([]);
@@ -70,6 +67,7 @@ function App() {
         </div>
       </div>
       <AddUpdateContacts modalState={modalState} isClose={isClose} />
+      <ToastContainer />
     </>
   );
 }

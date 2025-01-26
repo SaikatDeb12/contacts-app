@@ -2,7 +2,7 @@ import { Field, Form, Formik } from "formik";
 import Modal from "./Modal";
 import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase-config";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const AddUpdateContacts = ({ item, modalState, isClose, isUpdate }) => {
   const addContact = async (details) => {

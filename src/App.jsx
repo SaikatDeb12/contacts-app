@@ -9,7 +9,6 @@ import {
   onSnapshot,
   snapshotEqual,
 } from "firebase/firestore";
-import app from "./config/firebase-config";
 import { db } from "./config/firebase-config";
 import ContactCard from "./components/ContactCard";
 import AddUpdateContacts from "./components/AddUpdateContacts";

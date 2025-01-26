@@ -5,8 +5,6 @@ import { db } from "../config/firebase-config";
 import { deleteDoc, doc } from "firebase/firestore";
 import useModal from "../hooks/useModal";
 import AddUpdateContacts from "./AddUpdateContacts";
-import { useState } from "react";
-import { GiToaster } from "react-icons/gi";
 import { toast } from "react-toastify";
 
 const ContactCard = ({ item }) => {

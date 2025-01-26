@@ -3,8 +3,13 @@ import { MdDelete } from "react-icons/md";
 import { VscAccount } from "react-icons/vsc";
 import { db } from "../config/firebase-config";
 import { deleteDoc, doc } from "firebase/firestore";
+import useModal from "../hooks/useModal";
+import AddUpdateContacts from "./AddUpdateContacts";
+import { useState } from "react";
 
 const ContactCard = ({ item }) => {
+  const { modalState, isOpen, isClose } = useModal();
+
   const deleteContact = async (id) => {
     try {
       await deleteDoc(doc(db, "contacts", id));
@@ -24,12 +29,13 @@ const ContactCard = ({ item }) => {
         <p>{item.email}</p>
       </div>
       <div className="flex m-2">
-        <FaRegEdit className="h-7 w-7 mr-1" />
+        <FaRegEdit className="h-7 w-7 mr-1 cursor-pointer" onClick={isOpen} />
         <MdDelete
           className="h-7 w-7 text-[#F6820C]"
           onClick={() => deleteContact(item.id)}
         />
       </div>
+      <AddUpdateContacts modalState={modalState} isClose={isClose} isUpdate />
     </div>
   );
 };

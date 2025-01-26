@@ -2,8 +2,9 @@ import { Field, Form, Formik } from "formik";
 import Modal from "./Modal";
 import { addDoc, collection, deleteDoc } from "firebase/firestore";
 import { db } from "../config/firebase-config";
+import { useState } from "react";
 
-const AddUpdateContacts = ({ modalState, isClose }) => {
+const AddUpdateContacts = ({ modalState, isClose, isUpdate }) => {
   const addContact = async (details) => {
     try {
       const contactRef = collection(db, "contacts");
@@ -17,7 +18,7 @@ const AddUpdateContacts = ({ modalState, isClose }) => {
     <div>
       <Modal modalState={modalState} isClose={isClose}>
         <Formik
-          initialValues={{ name: "", email: "" }}
+          initialValues={{ name: (isUpdate)? :"", email: "" }}
           onSubmit={(value) => addContact(value)}
         >
           <Form>
@@ -31,7 +32,7 @@ const AddUpdateContacts = ({ modalState, isClose }) => {
                 <Field name="email" className="border rounded-sm" />
               </>
               <button className="bg-[#F6820C] p-1 self-end rounded-md ">
-                Add to Contacts
+                {isUpdate ? "Edit Contact" : "Add to Contacts"}
               </button>
             </div>
           </Form>

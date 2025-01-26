@@ -12,17 +12,13 @@ import { FaRegEdit } from "react-icons/fa";
 import ContactCard from "./components/ContactCard";
 import Modal from "./components/Modal";
 import AddUpdateContacts from "./components/AddUpdateContacts";
+import useModal from "./hooks/useModal";
 
 function App() {
   const [contacts, setContacts] = useState([]);
 
-  const [modalState, setModalState] = useState(false);
-  const isOpen = () => {
-    setModalState(true);
-  };
-  const isClose = () => {
-    setModalState(false);
-  };
+  const { modalState, isOpen, isClose } = useModal();
+
   useEffect(() => {
     const getContacts = async () => {
       try {

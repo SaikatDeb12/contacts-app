@@ -44,6 +44,23 @@ function App() {
     getContacts();
   }, []);
 
+  const searchContacts = (event) => {
+    const value = event.target.value;
+    const contactsRef = collection(db, "contacts");
+    onSnapshot(contactsRef, (snapshot) => {
+      const contactList = snapshot.docs.map((doc) => {
+        console.log("Data", doc.data());
+        return { id: doc.id, ...doc.data() };
+      });
+
+      const filteredContacts = contactList.filter((ele) => {
+        return ele.name.toLowerCase().includes(value.toLowerCase());
+      });
+      setContacts(filteredContacts);
+      return filteredContacts;
+    });
+  };
+
   return (
     <>
       <div className="App flex flex-col justify-center items-center m-4 max-w-80 mx-auto">
@@ -53,6 +70,7 @@ function App() {
           <input
             type="text"
             className="border-2 flex-grow flex items-center border-white rounded-lg bg-transparent h-9 text-white pl-8 font-little"
+            onChange={searchContacts}
             placeholder="Search Contact "
           />
           <IoIosAddCircle

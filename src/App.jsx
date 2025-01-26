@@ -3,7 +3,12 @@ import Navbar from "./components/Navbar";
 import { CiSearch } from "react-icons/ci";
 import { IoIosAddCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  snapshotEqual,
+} from "firebase/firestore";
 import app from "./config/firebase-config";
 import { db } from "./config/firebase-config";
 import { MdDelete } from "react-icons/md";
@@ -24,14 +29,16 @@ function App() {
       try {
         const contactsRef = collection(db, "contacts");
         console.log("Fetching");
-        const contactSnapshot = await getDocs(contactsRef);
-        // console.log(contactSnapshot.docs);
-        const contactList = contactSnapshot.docs.map((doc) => {
-          console.log("Data", doc.data());
-          return { id: doc.id, ...doc.data() };
+        // const contactSnapshot = await getDocs(contactsRef);
+
+        onSnapshot(contactsRef, (snapshot) => {
+          const contactList = snapshot.docs.map((doc) => {
+            console.log("Data", doc.data());
+            return { id: doc.id, ...doc.data() };
+          });
+          console.log("Fetched contacts: ", contactList);
+          setContacts(contactList);
         });
-        console.log("Fetched contacts: ", contactList);
-        setContacts(contactList);
       } catch (error) {
         console.log(error);
       }
